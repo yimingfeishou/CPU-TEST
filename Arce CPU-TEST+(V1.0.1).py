@@ -578,17 +578,18 @@ class CPUTestApp(QMainWindow):
         """执行CLI命令"""
         command = self.command_input.text().strip()
         self.command_input.clear()
-        
+    
         if not command:
             return
-            
-        self.log(f"执行命令: {command}")
         
-        # 解析命令
+        self.log(f"执行命令: {command}")
+    
         if command == "help":
             self.show_help()
         elif command == "list-test":
             self.list_tests()
+        elif command == "test-time-re":
+            self.restore_default_time()
         elif command.startswith("test-time-"):
             parts = command.split("-")
             if len(parts) == 4 and parts[3].isdigit():
@@ -603,8 +604,6 @@ class CPUTestApp(QMainWindow):
                 self.show_test_time(test_item)
             else:
                 self.log("error: 命令格式错误，正确格式: test-time-测试项-时间 或 test-time-测试项-seetime")
-        elif command == "test-time-re":
-            self.restore_default_time()
         elif command == "dev-test":
             self.toggle_developer_mode()
         elif command == "ver":
